@@ -5,6 +5,7 @@ require("dotenv").config();
 const passport = require("passport");
 const connectDB = require("./Models/db");
 require("./Authentication/passport");
+const ensureAuth = require("./Middlewares/auth.middleware");
 const oauthRouter = require("./Routes/oauthRouter");
 const authRouter = require("./Routes/authRouter");
 
@@ -21,7 +22,7 @@ app.get('/', (req, res) => {
   res.send('<a href="/oauth/google">Authenticate with Google</a>')
 })
 
-app.get('/get_started', (req, res) => {
+app.get('/get_started', ensureAuth, (req, res) => {
   res.send('Get Started Page');
 });
 
